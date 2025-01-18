@@ -1,12 +1,13 @@
-package hello.netronics.service;
+package hello.netro.service;
 
-import hello.netronics.domain.Like;
-import hello.netronics.domain.Post;
-import hello.netronics.domain.User;
-import hello.netronics.dto.LikeResponseDto;
-import hello.netronics.repository.FavoriteRepository;
-import hello.netronics.repository.PostRepository;
-import hello.netronics.repository.UserRepository;
+
+import hello.netro.domain.Like;
+import hello.netro.domain.Post;
+import hello.netro.domain.User;
+import hello.netro.dto.LikeResponseDto;
+import hello.netro.repository.FavoriteRepository;
+import hello.netro.repository.PostRepository;
+import hello.netro.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -30,14 +32,13 @@ public class LikeService {
 
         List<Like> likes = user.getLikes();
         for (Like like : likes) {
-            if (like.getPost().getId() == postId) {
+            if (Objects.equals(like.getPost().getId(), postId)) {
                 throw new RuntimeException("already likes this post");
             }
         }
 
         Post post = postRepository.findById(postId)
         .orElseThrow(() -> new NoSuchElementException("해당 게시물이 없습니다."));
-
         Like like = new Like();
         like.setUser(user);
         like.setPost(post);
@@ -46,7 +47,7 @@ public class LikeService {
         post.getLikes().add(like);
         favoriteRepository.save(like);
 
-        return LikeToDto(like);
+        return like.likeToDto();
     }
 
     @Transactional
@@ -74,19 +75,11 @@ public class LikeService {
         List<LikeResponseDto> dtoList = new ArrayList<>();
 
         for (Like like : likes) {
-            dtoList.add(LikeToDto(like));
+            dtoList.add(like.likeToDto());
         }
 
         return dtoList;
     }
 
-    private LikeResponseDto LikeToDto(Like like) {
-        LikeResponseDto dto = new LikeResponseDto();
 
-        dto.setUsername(like.getUser().getName());
-        dto.setLikeId(like.getId());
-        dto.setPostId(like.getPost().getId());
-
-        return dto;
-    }
 }

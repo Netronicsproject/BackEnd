@@ -47,7 +47,6 @@ public class LoginService {
         if (email == null) {
             throw new InvalidTokenException("구글 토큰에 이메일 정보가 없음");
         }
-
         // 사용자 조회 or 신규 생성
         User user = userRepository.findByEmail(email)
                 .orElseGet(() -> createNewUser(email, name));

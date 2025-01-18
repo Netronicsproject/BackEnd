@@ -1,4 +1,4 @@
-package hello.netronics.service;
+package hello.netro.service;
 
 import org.springframework.stereotype.Service;
 

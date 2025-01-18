@@ -1,6 +1,7 @@
 package hello.netro.auth;
 
-import hello.goodnews.util.JwtUtil;
+
+import hello.netro.util.JwtUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,12 +1,12 @@
 package hello.netro.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileResponseDto {
     private Long fileId;
     private String filePath;

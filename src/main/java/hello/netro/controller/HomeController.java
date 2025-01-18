@@ -1,4 +1,4 @@
-package hello.netronics.controller;
+package hello.netro.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

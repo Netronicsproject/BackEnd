@@ -1,9 +1,10 @@
-package hello.netronics.controller;
+package hello.netro.controller;
 
-import hello.netronics.auth.LoginUser;
-import hello.netronics.domain.User;
-import hello.netronics.dto.LikeResponseDto;
-import hello.netronics.service.LikeService;
+
+import hello.netro.auth.LoginUser;
+import hello.netro.domain.User;
+import hello.netro.dto.LikeResponseDto;
+import hello.netro.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

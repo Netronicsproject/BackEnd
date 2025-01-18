@@ -1,5 +1,6 @@
 package hello.netro.domain;
 
+import hello.netro.dto.LikeResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +24,11 @@ public class Like {
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
-    // getters and setters
+    public LikeResponseDto likeToDto() {
+        return LikeResponseDto.builder()
+                .likeId(this.id)
+                .postId(this.post.getId())
+                .username(this.user.getName())
+                .build();
+    }
 }

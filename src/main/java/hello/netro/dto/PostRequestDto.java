@@ -1,14 +1,14 @@
 package hello.netro.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
 
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PostRequestDto {
     private String title;
     private String content;

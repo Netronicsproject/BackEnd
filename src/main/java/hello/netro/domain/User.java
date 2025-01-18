@@ -1,5 +1,6 @@
 package hello.netro.domain;
 
+import hello.netro.dto.UserProfileDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,9 @@ public class User extends BaseTimeEntity {
     @Column(nullable = true)
     private String picture;
 
+    @Column(nullable = true)
+    private String introduce;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
 
@@ -42,5 +46,11 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    public void updateProfile(UserProfileDto userProfileDto)
+    {
+        this.name= userProfileDto.getUserName();
+        this.picture=userProfileDto.getPicture();
+        this.introduce= userProfileDto.getIntroduce();
+    }
 
 }

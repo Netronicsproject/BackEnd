@@ -1,18 +1,14 @@
-package hello.netronics.controller;
+package hello.netro.controller;
 
 
-import hello.netronics.auth.LoginUser;
-import hello.netronics.domain.User;
-import hello.netronics.service.LoginService;
-import jakarta.servlet.http.HttpSession;
+
+import hello.netro.auth.LoginUser;
+import hello.netro.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/login")

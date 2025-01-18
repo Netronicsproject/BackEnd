@@ -3,6 +3,7 @@ package hello.netro.auth;
 
 import hello.netro.domain.User;
 import hello.netro.repository.UserRepository;
+import hello.netro.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
