@@ -1,5 +1,7 @@
 package hello.netro.domain;
 
+import hello.netro.dto.LikeResponseDto;
+import hello.netro.dto.PostResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,10 +33,17 @@ public class Post extends BaseTimeEntity {
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<File> files = new ArrayList<>();
+    private List<Fileitem> fileitems = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Like> likes = new ArrayList<>();
 
     // getters and setters
+
+    public PostResponseDto PostToDto() {
+        return PostResponseDto.builder()
+                .postId(this.id)
+                .title(this.title)
+                .content(this.content).build();
+    }
 }
