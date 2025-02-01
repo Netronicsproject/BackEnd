@@ -29,6 +29,7 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Role role = Role.GUEST;  // 기본값으로 GUEST 설정
 
     @Column(nullable = true)

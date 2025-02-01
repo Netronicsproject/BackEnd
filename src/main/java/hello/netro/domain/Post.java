@@ -1,6 +1,5 @@
 package hello.netro.domain;
 
-import hello.netro.dto.LikeResponseDto;
 import hello.netro.dto.PostResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -40,7 +39,7 @@ public class Post extends BaseTimeEntity {
 
     // getters and setters
 
-    public PostResponseDto PostToDto() {
+    public PostResponseDto toDto() {
         return PostResponseDto.builder()
                 .postId(this.id)
                 .title(this.title)

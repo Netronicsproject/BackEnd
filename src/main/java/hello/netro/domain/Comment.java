@@ -1,5 +1,6 @@
 package hello.netro.domain;
 
+import hello.netro.dto.CommentResponseDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -70,5 +72,7 @@ public class Comment extends BaseTimeEntity{
         reply.parent = parent;
         return reply;
     }
+
+
 
 }

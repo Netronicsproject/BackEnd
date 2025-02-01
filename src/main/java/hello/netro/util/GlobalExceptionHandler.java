@@ -1,8 +1,10 @@
 package hello.netro.util;
 
 import hello.netro.dto.ErrorResult;
+import hello.netro.exception.TokenRefreshException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,5 +29,10 @@ public class GlobalExceptionHandler {
     public ErrorResult handleException(Exception e) {
         log.error("Unexpected error: {}", e.getMessage());
         return new ErrorResult("INTERNAL_ERROR", "서버 내부 오류가 발생했습니다.");
+    }
+
+    @ExceptionHandler(TokenRefreshException.class)
+    public ResponseEntity<?> handleTokenRefreshException(TokenRefreshException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
     }
 }
