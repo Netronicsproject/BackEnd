@@ -5,6 +5,7 @@ import hello.netro.dto.*;
 import hello.netro.domain.User;
 import hello.netro.service.CommentService;
 import hello.netro.service.PostService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.UrlResource;
@@ -34,7 +35,7 @@ public class PostController {
     public ResponseEntity<PostResponseDto> createPost(
             @RequestPart("post") PostRequestDto postRequestDto,
             @RequestPart(value = "files", required = false) List<MultipartFile> multipartFiles,
-            @LoginUser User user
+            @Parameter(hidden = true)@LoginUser User user
     ) {
         PostResponseDto postResponseDto = postService.createPost(postRequestDto, multipartFiles, user);
         return ResponseEntity.status(HttpStatus.CREATED).body(postResponseDto);
@@ -62,7 +63,7 @@ public class PostController {
             @PathVariable Long postId,
             @RequestPart("post") PostRequestDto postRequestDto,
             @RequestPart(value = "files", required = false) List<MultipartFile> multipartFiles,
-            @LoginUser User user
+            @Parameter(hidden = true)@LoginUser User user
     ) {
         PostResponseDto postResponseDto = postService.updatePost(postId, postRequestDto, multipartFiles, user);
         return ResponseEntity.ok(postResponseDto);
@@ -133,8 +134,6 @@ public class PostController {
         commentService.deleteComment(commentId);
         return ResponseEntity.noContent().build();
     }
-
-
 
 
 }

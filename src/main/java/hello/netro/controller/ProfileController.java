@@ -5,6 +5,7 @@ import hello.netro.auth.LoginUser;
 import hello.netro.domain.User;
 import hello.netro.dto.UserProfileDto;
 import hello.netro.service.UserService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,14 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/profile")
 @RequiredArgsConstructor
 @Slf4j
-public class ProfileController { //세션에 있는 사용자에 대해 카테고리 정보랑 성별 입력시켜줌
+public class ProfileController { //로그인되어 있는 사용자에 대해 카테고리 정보랑 성별 입력시켜줌
 
     private final UserService userService;
 
     @PostMapping("/new")
     public ResponseEntity<?> completeUserProfile(
             @RequestBody UserProfileDto userProfileDTO,
-            @LoginUser User user) {
+            @Parameter(hidden = true) @LoginUser User user) {
 
         log.info("User details: {}", user);
         log.info("User email: {}", user.getEmail());

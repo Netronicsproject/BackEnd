@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name="Users")
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User extends BaseTimeEntity {
@@ -29,7 +28,6 @@ public class User extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Builder.Default
     private Role role = Role.GUEST;  // 기본값으로 GUEST 설정
 
     @Column(nullable = true)
@@ -46,6 +44,13 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
+    @Builder
+    public User (String name,String email)
+    {
+        this.name=name;
+        this.email=email;
+    }
 
     public void updateProfile(UserProfileDto userProfileDto)
     {
