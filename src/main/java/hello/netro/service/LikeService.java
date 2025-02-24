@@ -8,9 +8,10 @@ import hello.netro.dto.LikeResponseDto;
 import hello.netro.repository.FavoriteRepository;
 import hello.netro.repository.PostRepository;
 import hello.netro.repository.UserRepository;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class LikeService {
         return like.likeToDto();
     }
 
-    @Transactional
+
     public void deleteLike(Long userId, Long postId) {
         Like like = favoriteRepository.findByUserIdAndPostId(userId, postId)
                         .orElseThrow(() -> new NoSuchElementException());

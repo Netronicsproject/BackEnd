@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserProfileDto {
-    private String picture;
+
     private String UserName;
     private String introduce;
 

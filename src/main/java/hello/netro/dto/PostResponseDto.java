@@ -2,6 +2,7 @@ package hello.netro.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -17,4 +18,6 @@ public class PostResponseDto {
     private List<FileResponseDto> files;
     private List<CommentResponseDto> comments;
     private List<LikeResponseDto> likes;
+    private LocalDateTime lastModified;
+
 }

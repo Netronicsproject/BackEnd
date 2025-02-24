@@ -20,7 +20,7 @@ public class Fileitem {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "post_id", nullable = true) //post가 없으면 프로필 이미지임
     private Post post;
 
     @Column(nullable = false)

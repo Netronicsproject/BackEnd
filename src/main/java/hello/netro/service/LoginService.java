@@ -8,6 +8,7 @@ import hello.netro.dto.AuthResponse;
 import hello.netro.exception.InvalidTokenException;
 import hello.netro.repository.UserRepository;
 import hello.netro.util.JwtUtil;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -30,6 +32,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class LoginService {
 
     private final JwtUtil jwtUtil;

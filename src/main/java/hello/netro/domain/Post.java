@@ -1,5 +1,7 @@
 package hello.netro.domain;
 
+import hello.netro.dto.FileResponseDto;
+import hello.netro.dto.LikeResponseDto;
 import hello.netro.dto.PostResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -43,6 +46,16 @@ public class Post extends BaseTimeEntity {
         return PostResponseDto.builder()
                 .postId(this.id)
                 .title(this.title)
-                .content(this.content).build();
+                .author(this.user.getName())
+                .content(this.content)
+                .files(this.fileitems.stream()
+                .map(FileResponseDto::new)
+                .collect(Collectors.toList())
+                )
+                .likes(this.likes.stream()
+                        .map(LikeResponseDto::new)
+                        .collect(Collectors.toList()))
+                .lastModified(this.getModifiedDate())
+                .build();
     }
 }

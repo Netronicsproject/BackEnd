@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // 요청에 대한 권한 설정
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/api/auth/**", "/h2-console/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/home","/","/index.html","/api/auth/**", "/h2-console/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 // 헤더 설정 (H2 콘솔을 위한)

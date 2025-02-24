@@ -36,6 +36,12 @@ public class PostService {
     private final FileRepository fileRepository;
 
 
+    //특정 사용자의 게시물 조회
+    public Page<PostResponseDto> posts(Pageable pageable,Long userId)
+    {
+        return postRepository.findByUserId(userId,pageable).map(Post::toDto);
+    }
+
     // 모든 게시글 조회 (페이징 적용) - 목록 조회는 PostSummaryDto 사용
     public Page<PostSummaryDto> getAllPosts(Pageable pageable) {
         return postRepository.findAll(pageable)

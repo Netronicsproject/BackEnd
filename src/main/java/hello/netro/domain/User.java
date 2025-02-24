@@ -31,7 +31,7 @@ public class User extends BaseTimeEntity {
     private Role role = Role.GUEST;  // 기본값으로 GUEST 설정
 
     @Column(nullable = true)
-    private String picture;
+    private String profilePath;
 
     @Column(nullable = true)
     private String introduce;
