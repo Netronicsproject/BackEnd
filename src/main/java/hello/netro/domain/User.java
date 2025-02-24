@@ -55,7 +55,6 @@ public class User extends BaseTimeEntity {
     public void updateProfile(UserProfileDto userProfileDto)
     {
         this.name= userProfileDto.getUserName();
-        this.picture=userProfileDto.getPicture();
         this.introduce= userProfileDto.getIntroduce();
     }
 
