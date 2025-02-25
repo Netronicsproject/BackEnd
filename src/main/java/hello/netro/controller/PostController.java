@@ -1,6 +1,7 @@
 package hello.netro.controller;
 
 import hello.netro.auth.LoginUser;
+import hello.netro.domain.Fileitem;
 import hello.netro.dto.*;
 import hello.netro.domain.User;
 import hello.netro.service.CommentService;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,10 +32,15 @@ import java.util.List;
 @RequestMapping("/api/post")
 @Tag(name="게시물  API", description = "게시물 업로드,수정,삭제,파일첨부등등  , 게시물의 파일은 게시물의 이미지파일과 첨부파일로 나뉨")
 public class PostController {
+
+    @Value("${file.dir}")
+    private String uploadPath ;
+    @Value("${file.baseurl}")
+    private String baseUrl;
     public final PostService postService;
     public final CommentService commentService;
-    // 게시글 생성
 
+    // 게시글 생성
     @Operation(summary = "게시물 만들기 api",description = "첨부파일을 멀티파트 형식으로 인자에 포함")
     @PostMapping("")
     public ResponseEntity<PostResponseDto> createPost(
@@ -61,9 +68,23 @@ public class PostController {
 
         return ResponseEntity.ok(response);
     }
+    //특정 게시물 클릭 이후 상세 정보
+    @Operation(summary = "게시물 자세히 보기 api",description = "게시물리스트에서 하나 클릭이후 게시물 상세정보" )
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponseDto> getPost(@PathVariable Long postId) {
+        PostResponseDto postById = postService.getPostById(postId);
+
+        if (postById == null) {
+            return ResponseEntity.notFound().build(); // 404 Not Found 반환
+        }
+
+        return ResponseEntity.ok(postById); // 200 OK + Post 데이터 반환
+    }
+
+
 
     // 게시글 수정
-    @Operation(summary = "게시물 수정 api",description = "필요에 따라 첨부파일도 수정가능 " )
+    @Operation(summary = "게시물 수정 api",description = "필요에 따라 첨부파일도 수정가능 ,filetype이 image인게 본문 첨가되는것 " )
     @PutMapping("/{postId}")
     public ResponseEntity<PostResponseDto> updatePost(
             @PathVariable Long postId,
@@ -82,8 +103,8 @@ public class PostController {
             @PathVariable Long postId,
             @PathVariable Long fileId
     ) throws MalformedURLException {
-        FileResponseDto attachFile = postService.getAttachFile(postId, fileId);
-        UrlResource resource = new UrlResource("file:" + attachFile.getFilePath());
+        Fileitem attachFile = postService.getAttachFile(postId, fileId);
+        UrlResource resource = new UrlResource("file:" + uploadPath + attachFile.getFilePath());
         String originalFilename = attachFile.getFileName();
         String encodedFileName = UriUtils.encode(originalFilename, StandardCharsets.UTF_8);
         String contentDisposition = "attachment; filename=\"" + encodedFileName + "\"";

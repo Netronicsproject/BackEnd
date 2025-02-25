@@ -6,6 +6,8 @@ import hello.netro.dto.PostResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,14 +44,14 @@ public class Post extends BaseTimeEntity {
 
     // getters and setters
 
-    public PostResponseDto toDto() {
+    public PostResponseDto toDto(String baseUrl) {
         return PostResponseDto.builder()
                 .postId(this.id)
                 .title(this.title)
                 .author(this.user.getName())
                 .content(this.content)
                 .files(this.fileitems.stream()
-                .map(FileResponseDto::new)
+                .map(file->new FileResponseDto(file,baseUrl))
                 .collect(Collectors.toList())
                 )
                 .likes(this.likes.stream()

@@ -23,9 +23,11 @@ public class Fileitem {
     @JoinColumn(name = "post_id", nullable = true) //post가 없으면 프로필 이미지임
     private Post post;
 
+    //논리적 파일이름( 저장할때는 여기에 추가로 UUID를 덧붙임)
     @Column(nullable = false)
     private String fileName;
 
+    //파일 저장 상대경로
     @Column(nullable = false)
     private String filePath;
 
@@ -33,12 +35,6 @@ public class Fileitem {
     private FileType fileType; // 예: IMAGE, ATTACHMENT, VIDEO 등
     // getters and setters
 
-    public FileResponseDto fileToDto()
-    {
-        return FileResponseDto.builder()
-                .fileName(this.fileName)
-                .fileId(this.id)
-                .filePath(this.filePath).build();
-    }
+
 
 }
