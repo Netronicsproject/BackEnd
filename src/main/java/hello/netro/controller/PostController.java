@@ -69,7 +69,8 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
     //특정 게시물 클릭 이후 상세 정보
-    @Operation(summary = "게시물 자세히 보기 api",description = "게시물리스트에서 하나 클릭이후 게시물 상세정보" )
+    @Operation(summary = "게시물 자세히 보기 api",description = "게시물 리스트에서 하나 클릭이후 게시물 상세정보" +
+            "\"fileUrl이 클라이언트가 접근할 수 있는 공개 URL 이를 기반으로  <img src=\\\"{fileUrl}\\\" alt=\\\"게시물 이미지\\\">와 같이 사용\"")
     @GetMapping("/{postId}")
     public ResponseEntity<PostResponseDto> getPost(@PathVariable Long postId) {
         PostResponseDto postById = postService.getPostById(postId);
@@ -84,7 +85,8 @@ public class PostController {
 
 
     // 게시글 수정
-    @Operation(summary = "게시물 수정 api",description = "필요에 따라 첨부파일도 수정가능 ,filetype이 image인게 본문 첨가되는것 " )
+    @Operation(summary = "게시물 수정 api",description = "필요에 따라 첨부파일도 수정가능 ,filetype이 image인게 본문 첨가되는것" +
+            "fileUrl이 클라이언트가 접근할 수 있는 공개 URL 이를 기반으로  <img src=\"{fileUrl}\" alt=\"게시물 이미지\">와 같이 사용" )
     @PutMapping("/{postId}")
     public ResponseEntity<PostResponseDto> updatePost(
             @PathVariable Long postId,
@@ -97,7 +99,8 @@ public class PostController {
     }
 
     // 파일 다운로드
-    @Operation(summary = "첨부파일 다운  api",description = "첨부파일을 포스트id와 파일 id기반으로 다운 ,파일 id를 프론트에선 가지고있어야함")
+    @Operation(summary = "첨부파일 다운  api",description = "첨부파일을 포스트id와 파일 id기반으로 다운 ,파일 id를 프론트에선 가지" +
+            "고있어야함 이를 기반으로 파일 다운되는 url리소스 반환 ")
     @GetMapping("{postId}/attachments/{fileId}")
     public ResponseEntity<Resource> downloadAttach(
             @PathVariable Long postId,
